@@ -7,6 +7,24 @@ Template Name: Home Rack
 
 <?php get_header(); ?>
 
+<script>
+
+  $( document ).ready(function() {
+
+$.ajax({
+  url: "/api/getWeather",
+  data: {
+    zipcode: 63015
+  },
+  success: function( result ) {
+    $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
+  }
+});
+
+});
+
+
+</script>
 
 <div class="hero-container">
 
@@ -51,7 +69,7 @@ Template Name: Home Rack
 
   </div>
 </div> -->
-
+<div id="weather-temp"></div>
 <div class="section-info-boxes">
   <div class="container">
     <div class="row">
