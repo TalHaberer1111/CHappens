@@ -455,8 +455,9 @@ footer .footer-link:hover {
 
 
 	.navbar-nav .nav-link {
-		transition: 0.9s ease-in-out;
+		transition: .3s ease-in;
 		color: black;
+		font-weight: 300;
 	}
 
 
@@ -464,10 +465,10 @@ footer .footer-link:hover {
 		color: #1276b7;
 		border-bottom: 3px solid #8bd178;
 		padding-bottom: 4px;
-		-webkit-transform: translate3d(0px, 0px, 45px) rotateX(360deg);
+		/* -webkit-transform: translate3d(0px, 0px, 45px) rotateX(360deg);
 	  -moz-transform: translate3d(0px, 0px, 45px) rotateX(360deg);
 	  -ms-transform: translate3d(0px, 0px, 45px) rotateX(360deg);
-	  transform: translate3d(0px, 0px, 45px) rotateX(360deg);
+	  transform: translate3d(0px, 0px, 45px) rotateX(360deg); */
 	}
 
  .image-center {

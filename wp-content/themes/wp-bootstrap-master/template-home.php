@@ -51,7 +51,7 @@ Template Name: Home Rack
         <p class="speech">Come Join Our World.</p>
       </div>
       <div class="panel">
-        <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/blueback.jpg" alt="">
+        <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/pattern1.jpg" alt="">
       </div>
       <div class="panel"></div>
       <div class="panel">
