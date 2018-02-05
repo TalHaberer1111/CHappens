@@ -306,22 +306,8 @@ Template Name: Home Rack
       // build scene
               var scene = new ScrollMagic.Scene({triggerElement: "#section-three", duration: 0,})
               // trigger animation by adding a css class
-              .setClassToggle("#image1", "fadeInRight2",)
+              .setClassToggle("#image1", "fadeInRight",)
               .addTo(controller);
-
-      // // create a scene
-      // // build scene
-      //         var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
-      //         // trigger animation by adding a css class
-      //         .setClassToggle("#box2", "fadeInUpBig2",)
-      //         .addTo(controller);
-      //
-      // // create a scene
-      // // build scene
-      //         var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
-      //         // trigger animation by adding a css class
-      //         .setClassToggle("#box3", "fadeInUpBig3",)
-      //         .addTo(controller);
 
     </script>
 

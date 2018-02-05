@@ -17,14 +17,14 @@
 			        	<a class="footer-link" href="#"><li>Hello</li></a>
 								<a class="footer-link" href="#"><li>Hello</li></a>
 								<a class="footer-link" href="#"><li>Hello</li></a>
-								<a class="footer-link" href="#"><li>Hello</li></a>
+								<!-- <a class="footer-link" href="#"><li>Hello</li></a> -->
 			        </ul>
 						</div>
 						<div class="col-sm">
 							<ul class="footer-row">
-			        	<a class="footer-link" href="#"><li>Hello</li></a>
+			        	<!-- <a class="footer-link" href="#"><li>Hello</li></a>
 								<a class="footer-link" href="#"><li>Hello</li></a>
-								<a class="footer-link" href="#"><li>Hello</li></a>
+								<a class="footer-link" href="#"><li>Hello</li></a> -->
 								<a class="footer-link donate-now" href="<?php echo esc_url( home_url( '/donate/' ) ); ?>"><li>Donate Now</li></a>
 			        </ul>
 						</div>
