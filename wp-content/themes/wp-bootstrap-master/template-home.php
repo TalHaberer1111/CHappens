@@ -287,7 +287,7 @@ Template Name: Home Rack
       if( $images ): ?>
           <ul class="gallery-image-container">
               <?php foreach( $images as $image ): ?>
-                <a><li class="single-gallery-image">
+                <a><li id="image1" class="single-gallery-image">
                   <?php echo wp_get_attachment_image( $image['ID'], $size ); ?>
                   </li></a>
               <?php endforeach; ?>
@@ -296,6 +296,34 @@ Template Name: Home Rack
 
       </div>
     </div>
+
+    <script>
+
+        // init controller
+      var controller = new ScrollMagic.Controller();
+
+      // create a scene
+      // build scene
+              var scene = new ScrollMagic.Scene({triggerElement: "#section-three", duration: 0,})
+              // trigger animation by adding a css class
+              .setClassToggle("#image1", "fadeInRight2",)
+              .addTo(controller);
+
+      // // create a scene
+      // // build scene
+      //         var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
+      //         // trigger animation by adding a css class
+      //         .setClassToggle("#box2", "fadeInUpBig2",)
+      //         .addTo(controller);
+      //
+      // // create a scene
+      // // build scene
+      //         var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
+      //         // trigger animation by adding a css class
+      //         .setClassToggle("#box3", "fadeInUpBig3",)
+      //         .addTo(controller);
+
+    </script>
 
 
   </div>
