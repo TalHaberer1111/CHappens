@@ -4,6 +4,7 @@ namespace SimplePay\Core\Admin\Pages;
 
 use SimplePay\Core\Admin\Tables\Form_List_Table;
 use SimplePay\Core\Admin\Metaboxes\Settings;
+use SimplePay\Core\Forms\Default_Form;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,6 +25,18 @@ class Main {
 
 	// Main html output callback function
 	public static function html() {
+
+		if ( isset( $_REQUEST['form_id'] ) ) {
+
+			$id = absint( $_REQUEST['form_id'] );
+
+			$simpay_form = apply_filters( 'simpay_form_view', '', $id );
+
+			if ( empty( $simpay_form ) ) {
+				new Default_Form( $id );
+			}
+
+		}
 
 		// Check if we need to save
 		if ( ( isset( $_POST['save'] ) || isset( $_POST['save_draft'] ) ) && isset( $_POST['simpay_form_id'] ) ) {
@@ -73,7 +86,7 @@ class Main {
 				default:
 					// Default to error message
 					$class   = 'error';
-					$message = 'An error has occurred.';
+					$message = 'An error occurred.';
 			}
 
 			echo '<div id="message" class="' . esc_attr( $class ) . '"><p>' . $message . '</p></div>';

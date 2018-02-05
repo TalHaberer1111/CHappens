@@ -2,8 +2,6 @@
 
 namespace SimplePay\Core\Payments;
 
-use SimplePay\Core\Session;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -78,11 +76,11 @@ class Charge {
 
 		if ( false !== $this->charge ) {
 			// Fires immediately after Stripe charge object created.
-			do_action( 'simpay_charge_created', $this->charge );
+			do_action( 'simpay_charge_created', $this->charge, $this->payment->metadata );
 
 			// Update WP Session variables to store the form ID and the charge ID
-			Session::add( 'form_id', $simpay_form->id );
-			Session::add( 'charge_id', $this->charge->id );
+			\SimplePay\Core\SimplePay()->session->set( 'form_id', $simpay_form->id );
+			\SimplePay\Core\SimplePay()->session->set( 'charge_id', $this->charge->id );
 		}
 	}
 

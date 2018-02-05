@@ -1,4 +1,4 @@
-/* global spGeneral */
+/* global spGeneral, jQuery  */
 
 var spShared = {};
 
@@ -11,6 +11,7 @@ var spShared = {};
 
 		init: function() {
 
+			// Set main vars on init.
 			body = $( document.body );
 
 			// Format currency inputs after they lose focus

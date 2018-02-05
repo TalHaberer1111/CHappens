@@ -30,7 +30,6 @@ class Settings {
 
 			<ul class="simpay-tabs">
 				<?php self::settings_tabs( $post ); ?>
-				<?php //do_action( 'simcal_settings_meta_tabs' ); ?>
 			</ul>
 
 			<div class="simpay-panels">
@@ -75,13 +74,15 @@ class Settings {
 				<div id="subscription-options-settings-panel" class="simpay-panel simpay-panel-hidden">
 					<?php
 
-					$subscription_options_template = apply_filters( 'simpay_subscription_options_template', 'views/tabs/tab-subscription-options.php' );
+					$subscription_options_template = apply_filters( 'simpay_subscription_options_template', SIMPLE_PAY_INC . 'core/admin/metaboxes/views/tabs/tab-subscription-options.php' );
 
 					include_once( $subscription_options_template );
 
-					do_action( 'simpay_settings_meta_subscription_options_panel', $post->ID );
+					do_action( 'simpay_form_settings_meta_subscription_display_panel', $post->ID );
 					?>
 				</div>
+
+		    <?php do_action( 'simpay_form_settings_meta_options_panel', $post->ID ); ?>
 
 			</div>
 
@@ -194,6 +195,20 @@ class Settings {
 			$amount = isset( $_POST['_amount'] ) ? sanitize_text_field( $_POST['_amount'] ) : ( false !== get_post_meta( $post_id, '_amount', true ) ? get_post_meta( $post_id, '_amount', true ) : '1' );
 		}
 		update_post_meta( $post_id, '_amount', $amount );
+
+		/** General Options **/
+
+		// Success Redirect Type
+		$success_redirect_type = isset( $_POST['_success_redirect_type'] ) ? esc_attr( $_POST['_success_redirect_type'] ) : 'default';
+		update_post_meta( $post_id, '_success_redirect_type', $success_redirect_type );
+
+		// Success Redirect Page
+		$success_redirect_page = isset( $_POST['_success_redirect_page'] ) ? esc_attr( $_POST['_success_redirect_page'] ) : '';
+		update_post_meta( $post_id, '_success_redirect_page', $success_redirect_page );
+
+		// Success Redirect URL
+		$success_redirect_url = isset( $_POST['_success_redirect_url'] ) ? esc_url( $_POST['_success_redirect_url'] ) : '';
+		update_post_meta( $post_id, '_success_redirect_url', $success_redirect_url );
 
 		// Verify Zip/Postal Code
 		$verify_zip = isset( $_POST['_verify_zip'] ) ? 'yes' : 'no';

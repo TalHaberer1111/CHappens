@@ -31,7 +31,7 @@ class Assets {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 
-		add_filter( 'wp_footer', array( $this, 'localize_scripts' ) );
+		add_action( 'wp_footer', array( $this, 'localize_scripts' ) );
 	}
 
 	/**
@@ -130,8 +130,8 @@ class Assets {
 	 */
 	public function register() {
 
-		$this->styles  = apply_filters( 'simpay_before_register_public_styles', $this->styles );
-		$this->scripts = apply_filters( 'simpay_before_register_public_scripts', $this->scripts );
+		$this->styles  = apply_filters( 'simpay_before_register_public_styles', $this->styles, $this->min );
+		$this->scripts = apply_filters( 'simpay_before_register_public_scripts', $this->scripts, $this->min );
 
 		if ( ! empty( $this->styles ) && is_array( $this->styles ) ) {
 			foreach ( $this->styles as $style => $values ) {
@@ -176,7 +176,6 @@ class Assets {
 	 * Localize our public script
 	 */
 	public function localize_scripts() {
-
 		wp_localize_script( 'simpay-public', 'simplePayForms', self::$script_variables );
 	}
 
@@ -189,5 +188,7 @@ class Assets {
 
 		// Do not array_merge here because it will just overwrite all the keys of previous forms. We need to keep them all.
 		self::$script_variables = self::$script_variables + $vars;
+
+
 	}
 }

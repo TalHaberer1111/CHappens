@@ -1,11 +1,11 @@
-/* global simplePayForms, spGeneral */
+/* global simplePayForms, spGeneral, jQuery */
 
 var simpayApp = {};
 
 (function( $ ) {
 	'use strict';
 
-	var body = $( document.body );
+	var body;
 
 	simpayApp = {
 
@@ -19,6 +19,9 @@ var simpayApp = {};
 		spStripeData: {},
 
 		init: function() {
+
+			// Set main vars on init.
+			body = $( document.body );
 
 			this.spFormElList = body.find( '.simpay-checkout-form' );
 
@@ -50,6 +53,8 @@ var simpayApp = {};
 			// Set formData array index of the current form ID to match the localized data passed over for form settings.
 			formData = $.extend( {},  localizedFormData.form.integers, localizedFormData.form.bools, localizedFormData.form.strings );
 
+			formData.formId = formId;
+
 			// Set a finalAmount setting so that we can perform all the actions on this. That way if we need to reverse anything we leave the base amount untouched and can revert to it.
 			formData.finalAmount = formData.amount;
 
@@ -78,12 +83,8 @@ var simpayApp = {};
 				token: handleStripeToken,
 
 				opened: function() {
-
-					// TODO: simpayApp.debugLog( 'checkout opened event fired' );
 				},
 				closed: function() {
-
-					// TODO: simpayApp.debugLog( 'checkout closed event fired' );
 				}
 			} );
 
@@ -119,6 +120,8 @@ var simpayApp = {};
 
 				simpayApp.submitPayment( spFormElem, formData, stripeHandler );
 			} );
+
+			this.spFormData[ formId ] = formData;
 
 			/** Event handlers for form elements **/
 
@@ -177,9 +180,9 @@ var simpayApp = {};
 
 			var finalAmount = formData.amount;
 
-			body.trigger( 'simpayFinalizeAmount', [ spFormElem, formData ] );
-
 			formData.finalAmount = finalAmount.toFixed( 0 );
+
+			body.trigger( 'simpayFinalizeAmount', [ spFormElem, formData ] );
 
 			// Update hidden amount field for processing
 			spFormElem.find( '.simpay-amount' ).val( formData.finalAmount );
@@ -242,11 +245,7 @@ var simpayApp = {};
 
 	$( document ).ready( function( $ ) {
 
-		spShared.debugLog( 'before simpayApp.init' );
-
 		simpayApp.init();
-
-		spShared.debugLog( 'after simpayApp.init' );
 	} );
 
 }( jQuery ) );

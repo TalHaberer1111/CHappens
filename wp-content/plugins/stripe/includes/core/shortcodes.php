@@ -1,7 +1,4 @@
 <?php
-/**
- * Shortcodes
- */
 
 namespace SimplePay\Core;
 
@@ -14,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Shortcodes.
+ * Core Shortcodes Class
  *
  * Register and handle custom shortcodes.
  */
@@ -26,20 +23,17 @@ class Shortcodes {
 	public function __construct() {
 
 		// Add shortcodes.
-		add_action( 'init', array( $this, 'register' ) );
+		add_action( 'init', array( $this, 'register_shortcodes' ) );
 	}
 
 	/**
 	 * Register shortcodes.
 	 */
-	public function register() {
+	public function register_shortcodes() {
 
 		add_shortcode( 'simpay', array( $this, 'print_form' ) );
-
 		add_shortcode( 'simpay_payment_receipt', array( $this, 'print_payment_receipt' ) );
-
 		add_shortcode( 'simpay_preview', array( $this, 'print_preview_form' ) );
-
 		add_shortcode( 'simpay_error', array( $this, 'print_errors' ) );
 
 		do_action( 'simpay_add_shortcodes' );
@@ -61,6 +55,7 @@ class Shortcodes {
 		$access_level = strtolower( $args['show_to'] );
 
 		$show = false;
+		$html = '';
 
 		switch ( $access_level ) {
 			case 'registered':
@@ -80,12 +75,13 @@ class Shortcodes {
 		}
 
 		if ( $show ) {
-			if ( Session::has_errors() ) {
-				return '<div class="simpay-error">' . Session::print_all_errors() . '</div>';
-			}
+
+			$html = Errors::get_error_html();
 		}
 
-		return '';
+		Errors::clear_errors();
+
+		return $html;
 	}
 
 	/**
@@ -101,7 +97,7 @@ class Shortcodes {
 
 		global $simpay_form;
 
-		Session::clear_all();
+		// TODO Double check if there's any sensitive data being passed?
 
 		$args = shortcode_atts( array(
 			'id' => null,
@@ -115,7 +111,11 @@ class Shortcodes {
 
 			if ( $form_post && 'publish' === $form_post->post_status ) {
 
-				$simpay_form = apply_filters( 'simpay_form_view', new Default_Form( $id ), $id );
+				$simpay_form = apply_filters( 'simpay_form_view','', $id );
+
+				if ( empty( $simpay_form ) ) {
+					$simpay_form =  new Default_Form( $id );
+				}
 
 				if ( $simpay_form instanceof Form ) {
 
@@ -140,6 +140,8 @@ class Shortcodes {
 	 */
 	public function print_preview_form( $attributes ) {
 
+		// TODO DRY/combine print_form & print_preview_form functions.
+
 		global $simpay_form;
 
 		$args = shortcode_atts( array(
@@ -154,7 +156,11 @@ class Shortcodes {
 
 			if ( $form_post && current_user_can( 'manage_options' ) ) {
 
-				$simpay_form = apply_filters( 'simpay_form_view', new Default_Form( $id ), $id );
+				$simpay_form = apply_filters( 'simpay_form_view','', $id );
+
+				if ( empty( $simpay_form ) ) {
+					$simpay_form =  new Default_Form( $id );
+				}
 
 				if ( $simpay_form instanceof Form ) {
 
@@ -177,30 +183,41 @@ class Shortcodes {
 	 */
 	public function print_payment_receipt() {
 
-		$charge_id       = Session::get( 'charge_id' );
-		$customer_id     = Session::get( 'customer_id' );
+		$charge_id       = SimplePay()->session->get( 'charge_id' );
+		$customer_id     = SimplePay()->session->get( 'customer_id' );
 
-		if ( empty( $charge_id ) ) {
-			echo '<p>' . esc_html__( 'An error occurred, but your charge may have went through. Please contact the site admin.', 'stripe' ) . '</p>';
+		$session_error = apply_filters( 'simpay_session_error', ( empty( $charge_id ) ? true : false ) );
 
-			return '';
+		if ( $session_error ) {
+			$session_error_message = '<p>' . esc_html__( 'An error occurred, but your charge may have gone through. Please contact the site admin.', 'stripe' ) . '</p>';
+
+			return apply_filters( 'simpay_charge_error_message', $session_error_message );
 		}
 
 		global $simpay_form;
 
-		$simpay_form = Session::get( 'simpay_form' );
+		$simpay_form = SimplePay()->session->get( 'simpay_form' );
 
 		if ( ! ( $simpay_form instanceof Form ) ) {
 			return '';
 		}
 
-		$payment = new Payment( $simpay_form );
+		$action = '';
+		$payment = apply_filters( 'simpay_payment_handler', '', $simpay_form, $action );
 
-		$payment->set_charge( $charge_id );
+		if ( empty( $payment ) ) {
+			$payment = new Payment( $simpay_form, $action );
+		}
+
+		if ( ! empty( $charge_id ) ) {
+			$payment->set_charge( $charge_id );
+		}
 
 		if ( $customer_id ) {
 			$payment->set_customer( $customer_id );
 		}
+
+		do_action( 'simpay_payment_receipt_html', $payment );
 
 		$html = new Payments\Details( $payment );
 

@@ -7,13 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Details
+ * Core Payment Details Class
  *
- * @package SimplePay\Payments
- *
- *  A class to handle all of the payment details output after a transaction.
+ * Handles all of the payment details output after a transaction.
  */
 class Details {
+
+	public $payment = null;
 
 	// The available tags that can be used in the Payment Confirmation text editor setting
 	public $tags = array();
@@ -95,6 +95,10 @@ class Details {
 		$before_html = apply_filters( 'simpay_before_payment_details', '<div class="simpay-payment-receipt-wrap">' );
 		$after_html  = apply_filters( 'simpay_after_payment_details', '</div>' );
 
+		// Clear out session vars here.
+		// Shortcodes->print_payment_details() will have been processed by this point.
+		\SimplePay\Core\SimplePay()->session->clear();
+
 		// Determine if we need to echo the output or just return it
 		if ( $echo ) {
 			echo $before_html . $html . $after_html;
@@ -153,8 +157,10 @@ class Details {
 		switch ( $type ) {
 			case 'one_time':
 				return isset( $display_options['payment_confirmation_messages']['one_time_payment_details'] ) ? $display_options['payment_confirmation_messages']['one_time_payment_details'] : simpay_get_editor_default( 'one_time' );
+			case has_filter( 'simpay_get_editor_content' ):
+				return apply_filters( 'simpay_get_editor_content', '', $type, $display_options );
 			default:
-				return apply_filters( 'simpay_get_editor_content', '', $display_options );
+				return '';
 		}
 	}
 }

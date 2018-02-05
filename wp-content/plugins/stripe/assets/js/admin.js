@@ -1,4 +1,4 @@
-/* global spGeneral */
+/* global spGeneral, jQuery */
 
 var spAdmin = {};
 
@@ -12,7 +12,7 @@ var spAdmin = {};
 
 		init: function() {
 
-			// We need to set these in here because this is when the page is ready to grab this info.
+			// Set main vars on init.
 			body = $( document.body );
 			spFormSettings = body.find( '#simpay-form-settings' );
 
@@ -54,6 +54,15 @@ var spAdmin = {};
 			// Handle the submit when they press enter
 			body.find( '#post' ).on( 'keypress.simpaySubmitOnEnter', function( e ) {
 				spAdmin.handleSubmitOnEnter( $( this ) );
+			} );
+
+			// Multi Toggles (like a radio button with multiple-options)
+			spFormSettings.find( '.simpay-multi-toggle input[type="radio"]:checked' ).each( function() {
+				spAdmin.initMultiToggle( $( this ) );
+			} );
+
+			spFormSettings.on( 'change.simpayMultiToggle', '.simpay-multi-toggle input[type="radio"]', function() {
+				spAdmin.initMultiToggle( $( this ) );
 			} );
 
 			body.trigger( 'simpayAdminInit' );
@@ -196,6 +205,9 @@ var spAdmin = {};
 				// Assign current tab element to var from link href attribute.
 				var currentTabEl = $( $( this ).attr( 'href' ) );
 
+				// Set the hash in the URL so after saving we get the same tab
+				location.hash = $( this ).attr( 'href' );
+
 				e.preventDefault();
 
 				// Remove active class from all tabs.
@@ -215,6 +227,11 @@ var spAdmin = {};
 
 			// Auto open tab if in url hash.
 			if ( location.hash.length ) {
+
+				// This prevents the hash being used like an anchor
+				setTimeout( function() {
+					window.scrollTo( 0, 0 );
+				}, 1 );
 
 				activeTabLink = $( 'ul.simpay-tabs a[href="' + location.hash + '"]' );
 
@@ -243,6 +260,21 @@ var spAdmin = {};
 			} else {
 				elem.closest( '.simpay-panel-field' ).parent().find( showElem ).hide();
 			}
+		},
+
+		initMultiToggle: function( elem ) {
+
+			var selectedId = elem.attr( 'id' );
+
+			// Hide all options first. This allows us to show multiple sections with the classes
+			elem.closest( '.simpay-field-radios-inline' ).find( 'input[type="radio"]' ).each( function( currIndex ) {
+
+				// $( this ) in this context is the current iteration, not what is set to elem. so we need to keep it here
+				spFormSettings.find( '.toggle-' + $( this ).attr( 'id' ) ).hide();
+			} );
+
+			// Show elements that have the correct class
+			spFormSettings.find( '.toggle-' + selectedId ).show();
 		}
 	};
 

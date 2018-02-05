@@ -13,14 +13,14 @@ if ( ! class_exists( 'Promo_Loader' ) ) {
 			// Payment options tab
 			add_action( 'simpay_form_settings_meta_payment_options_panel', array( $this, 'payment_options_tab' ) );
 
+			// General Options tab
+			add_action( 'simpay_admin_after_general_options', array( $this, 'general_options_tab' ) );
+
 			// On-Page Form Display tab
 			add_action( 'simpay_form_settings_meta_form_display_panel', array( $this, 'form_display_tab' ) );
 
 			// Checkout Overlay tab
 			add_action( 'simpay_form_settings_meta_overlay_display_panel', array( $this, 'checkout_overlay_tab' ) );
-
-			// Subscription Options tab
-			add_action( 'simpay_settings_meta_subscription_options_panel', array( $this, 'subscription_options_tab' ) );
 		}
 
 		public static function get_instance() {
@@ -37,6 +37,12 @@ if ( ! class_exists( 'Promo_Loader' ) ) {
 			include( 'views/promo-under-box-footer.php' );
 		}
 
+		public function general_options_tab() {
+			include( 'views/promo-under-box-header.php' );
+			include( 'views/generic-tab-promo.php' );
+			include( 'views/promo-under-box-footer.php' );
+		}
+
 		public function form_display_tab() {
 			include( 'views/promo-under-box-header.php' );
 			include( 'views/generic-tab-promo.php' );
@@ -46,12 +52,6 @@ if ( ! class_exists( 'Promo_Loader' ) ) {
 		public function checkout_overlay_tab() {
 			include( 'views/promo-under-box-header.php' );
 			include( 'views/generic-tab-promo.php' );
-			include( 'views/promo-under-box-footer.php' );
-		}
-
-		public function subscription_options_tab() {
-			include( 'views/promo-under-box-header.php' );
-			include( 'views/subscription-tab-promo.php' );
 			include( 'views/promo-under-box-footer.php' );
 		}
 	}

@@ -94,7 +94,8 @@ class General extends Admin_Page {
 							'value'       => $this->get_option_value( $section, 'success_page' ),
 							'page_select' => 'page_select',
 							'default'     => $success_default,
-							'description' => sprintf( esc_html__( 'The page customers are sent to after completing a payment. The %s shortcode needs to be on this page. Configure in the next tab. This page should also be excluded from any site caching.', 'stripe' ), '<code>[simpay_payment_receipt]</code>' ),
+							'class'       => array( 'simpay-chosen-search' ),
+							'description' => sprintf( esc_html__( 'The page customers are sent to after completing a payment. The shortcode %s needs to be on this page. Output configured in the Payment Confirmation settings. This page should be excluded from any site caching.', 'stripe' ), '<code>[simpay_payment_receipt]</code>' ),
 						),
 						'failure_page' => array(
 							'title'       => esc_html__( 'Payment Failure Page', 'stripe' ),
@@ -103,6 +104,7 @@ class General extends Admin_Page {
 							'id'          => 'simpay-' . $this->option_group . '-' . $this->id . '-' . $section . '-failure-page',
 							'value'       => $this->get_option_value( $section, 'failure_page' ),
 							'page_select' => 'page_select',
+							'class'       => array( 'simpay-chosen-search' ),
 							'default'     => $failure_default,
 							'description' => esc_html__( 'The page customers are sent to after a failed payment.', 'stripe' ),
 						),
@@ -181,15 +183,15 @@ class General extends Admin_Page {
 						'payment_button_style'  => array(
 							'title'   => esc_html__( 'Payment Button Style', 'stripe' ),
 							'type'    => 'radio',
+							'name'    => 'simpay_' . $this->option_group . '_' . $this->id . '[' . $section . '][payment_button_style]',
+							'id'      => 'simpay-' . $this->option_group . '-' . $this->id . '-' . $section . '-payment-button-style',
+							'value'   => $this->get_option_value( $section, 'payment_button_style' ),
 							'options' => array(
 								'stripe' => esc_html__( 'Stripe blue', 'stripe' ),
 								'none'   => esc_html__( 'None (inherit from theme)', 'stripe' ),
 							),
-							'inline'  => 'inline',
 							'default' => 'stripe',
-							'name'    => 'simpay_' . $this->option_group . '_' . $this->id . '[' . $section . '][payment_button_style]',
-							'id'      => 'simpay-' . $this->option_group . '-' . $this->id . '-' . $section . '-payment-button-style',
-							'value'   => $this->get_option_value( $section, 'payment_button_style' ),
+							'inline'  => 'inline',
 						),
 						'default_plugin_styles' => array(
 							'title'       => esc_html__( 'Default Plugin Styles', 'stripe' ),

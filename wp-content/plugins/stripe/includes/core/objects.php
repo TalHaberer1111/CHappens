@@ -2,8 +2,6 @@
 
 namespace SimplePay\Core;
 
-use SimplePay\Core\Abstracts as Object;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -43,7 +41,7 @@ class Objects {
 		if ( is_int( $object ) ) {
 			$post = get_post( $object );
 			if ( $post ) {
-				return $this->get_object( 'default-form', 'form', $post );
+				return $this->get_object( apply_filters( 'simpay_form_object_type', 'default-form' ), 'form', $post );
 			}
 		}
 
@@ -152,7 +150,7 @@ class Objects {
 		} elseif ( 'admin-page' == $type ) {
 			$namespace = '\\' . __NAMESPACE__ . '\Admin\Pages\\';
 		} elseif ( 'form' == $type ) {
-			$namespace = '\\' . __NAMESPACE__ . '\Forms\\';
+			$namespace = '\\' . apply_filters( 'simpay_form_namespace', __NAMESPACE__ ) . '\Forms\\';
 		} else {
 			return '';
 		}

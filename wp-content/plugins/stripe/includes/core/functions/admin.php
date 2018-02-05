@@ -128,7 +128,7 @@ function simpay_get_forms_list() {
  * @return array
  */
 function simpay_get_admin_pages() {
-	$objects = \SimplePay\Core\plugin()->objects;
+	$objects = \SimplePay\Core\SimplePay()->objects;
 
 	return $objects instanceof \SimplePay\Core\Objects ? $objects->get_admin_pages() : array();
 }
@@ -140,10 +140,10 @@ function simpay_get_admin_pages() {
  *
  * @param  string $page
  *
- * @return null|\SimplePay\Abstracts\Admin_Page
+ * @return null|\SimplePay\Core\Abstracts\Admin_Page
  */
 function simpay_get_admin_page( $page ) {
-	$objects = \SimplePay\Core\plugin()->objects;
+	$objects = \SimplePay\Core\SimplePay()->objects;
 
 	return $objects instanceof \SimplePay\Core\Objects ? $objects->get_admin_page( $page ) : null;
 }
@@ -256,7 +256,7 @@ function simpay_ga_url( $base_url, $content, $raw = false ) {
  */
 function simpay_pro_upgrade_url( $content ) {
 
-	return simpay_ga_url( SIMPLE_PAY_STORE_URL . 'lite-vs-pro/', $content );
+	return apply_filters( 'simpay_upgrade_link', simpay_ga_url(SIMPLE_PAY_STORE_URL . 'lite-vs-pro/', $content ) );
 }
 
 /**

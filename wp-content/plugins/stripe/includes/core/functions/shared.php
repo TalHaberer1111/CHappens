@@ -12,6 +12,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use SimplePay\Core\Abstracts\Form;
 
+// TODO Need function simpay_clean?
+
+/**
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @since  3.0
+ * @param  string|array $var
+ *
+ * @return string|array
+ */
+function simpay_clean( $var ) {
+	if ( is_array( $var ) ) {
+		return array_map( 'simpay_clean', $var );
+	} else {
+		return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+	}
+}
+
 /**
  * Get a Simple Pay setting. It will check for both a form setting or a global setting option.
  *
@@ -179,7 +198,7 @@ function simpay_get_total( $formatted = true ) {
  * @return string
  */
 function simpay_get_url( $url ) {
-	return \SimplePay\Core\plugin()->get_url( $url );
+	return \SimplePay\Core\SimplePay()->get_url( $url );
 }
 
 /**
@@ -217,7 +236,7 @@ function simpay_admin_error( $message, $echo = true ) {
  * @return null|\SimplePay\Core\Abstracts\Form
  */
 function simpay_get_form( $object ) {
-	$objects = \SimplePay\Core\plugin()->objects;
+	$objects = \SimplePay\Core\SimplePay()->objects;
 
 	return $objects instanceof \SimplePay\Core\Objects ? $objects->get_form( $object ) : null;
 }
@@ -233,7 +252,7 @@ function simpay_get_form( $object ) {
  * @return null|\SimplePay\Core\Abstracts\Field
  */
 function simpay_get_field( $args, $name = '' ) {
-	$objects = \SimplePay\Core\plugin()->objects;
+	$objects = \SimplePay\Core\SimplePay()->objects;
 
 	return $objects instanceof \SimplePay\Core\Objects ? $objects->get_field( $args, $name ) : null;
 }
@@ -288,8 +307,7 @@ function simpay_get_secret_key() {
 	$test_mode = simpay_is_test_mode();
 
 	if ( ! empty( $simpay_form ) ) {
-		$test_secret_key = $simpay_form->test_secret_key;
-		$live_secret_key = $simpay_form->live_secret_key;
+		return $simpay_form->secret_key;
 	} else {
 
 		$settings = get_option( 'simpay_settings_keys' );
@@ -319,8 +337,7 @@ function simpay_get_publishable_key() {
 	$test_mode = simpay_is_test_mode();
 
 	if ( ! empty( $simpay_form ) ) {
-		$test_publishable_key = $simpay_form->test_publishable_key;
-		$live_publishable_key = $simpay_form->live_publishable_key;
+		return $simpay_form->publishable_key;
 	} else {
 
 		$settings = get_option( 'simpay_settings_keys' );
@@ -662,12 +679,12 @@ function simpay_get_editor_default( $editor ) {
 			$template .= '<strong>' . esc_html__( 'Purchased From:', 'stripe' ) . '</strong>' . ' {company-name}' . "\n";
 			$template .= '<strong>' . esc_html__( 'Payment Date:', 'stripe' ) . '</strong>' . ' {charge-date}' . "\n";
 			$template .= '<strong>' . esc_html__( 'Payment Amount: ', 'stripe' ) . '</strong>' . '{total-amount}' . "\n";
-			break;
-		default:
 			return $template;
+		case has_filter( 'simpay_editor_template' ):
+			return apply_filters( 'simpay_editor_template', '', $editor );
+		default:
+			return '';
 	}
-
-	return apply_filters( 'simpay_editor_template', $template, $editor );
 }
 
 /**
