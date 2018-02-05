@@ -17,7 +17,6 @@ Template Name: Home Rack
       <div class="col-sm hero-column">
         <h1 class="main-header">Unbounded<br> Souls</h1>
         <a class="hero-button" href="#">JOIN OUR MISSION</a>
-        <!-- <img class="hero-logo" src="images/goldenowl.png"> -->
       </div>
       <div class="col-sm hero-column">
         <div class="white-message-box">
@@ -30,16 +29,6 @@ Template Name: Home Rack
 
   </div>
 
-  <div class="video-container">
-      <!-- <div class="filter"></div>
-      <video autoplay loop>
-          <source src="<?php echo get_template_directory_uri(); ?>/video/Diagonal.mp4" type="video/mp4" />
-          <source src="PATH_TO_WEBM" type="video/webm" />
-      </video>
-      <div class="poster hidden">
-          <img src="PATH_TO_JPEG" alt="">
-      </div> -->
-  </div>
 
   <!-- <img class="unbounded-image-hero" src="<?php echo get_template_directory_uri(); ?>/images/unbounded8.png" alt=""> -->
 
@@ -50,25 +39,30 @@ Template Name: Home Rack
 </div>
 
 <article class="comic">
-  <div class="panel">
-    <p class="text top-left">Suddenly...</p>
-    <p class="text bottom-right">...something amazing happened</p>
-  </div>
-  <div class="panel">
-    <p class="text top-left">Try resizing...</p>
-    <p class="text bottom-right">...it's responsive</p>
-  </div>
-  <div class="panel">
-    <p class="speech">A speech bubble</p>
-  </div>
-  <div class="panel"></div>
-  <div class="panel"></div>
-  <div class="panel"></div>
-  <div class="panel"></div>
-  <div class="panel"></div>
-  <div class="panel">
-    <p class="text bottom-right">THE END</p>
-  </div>
+      <div class="panel">
+        <p class="text top-left">Hello There</p>
+        <p class="text bottom-right">...something amazing happened</p>
+      </div>
+      <div class="panel">
+        <p class="text top-left">We did it!</p>
+        <p class="text bottom-right">...it's Awesome</p>
+      </div>
+      <div class="panel">
+        <p class="speech">Come Join Our World.</p>
+      </div>
+      <div class="panel">
+        <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/images/blueback.jpg" alt="">
+      </div>
+      <div class="panel"></div>
+      <div class="panel">
+            <img class="alien2" src="<?php echo get_template_directory_uri(); ?>/images/alien2.png" alt="">
+      </div>
+      <div class="panel">
+      </div>
+      <div class="panel"></div>
+      <div class="panel">
+        <p class="text bottom-right">THE END</p>
+      </div>
 </article>
 
 
@@ -150,7 +144,7 @@ Template Name: Home Rack
     		?>
 
     	   <h1 class="main-header text-center"><?php echo $name; ?></h1>
-    		 <img class="image-center-one" src="<?php echo $image; ?>" alt="<?php echo $image['alt'] ?>" />
+    		 <img id="image11" class="image-center-one" src="<?php echo $image; ?>" alt="<?php echo $image['alt'] ?>" />
          <div class="section-one-info info-section">
 
           <?php echo $info; ?>
@@ -165,6 +159,22 @@ Template Name: Home Rack
   </div>
 
     <?php endif; ?>
+
+    <script>
+
+        // init controller
+      var controller = new ScrollMagic.Controller();
+
+      // create a scene
+      // build scene
+              var scene = new ScrollMagic.Scene({triggerElement: "#section-one", duration: "100%"})
+              // trigger animation by adding a css class
+              .setClassToggle("#image11", "fadeInRight",)
+              .addTo(controller);
+
+
+    </script>
+
 
   </div>
 
@@ -297,7 +307,7 @@ Template Name: Home Rack
       </div>
     </div>
 
-    <script>
+    <!-- <script>
 
         // init controller
       var controller = new ScrollMagic.Controller();
@@ -309,7 +319,7 @@ Template Name: Home Rack
               .setClassToggle("#image1", "fadeInRight",)
               .addTo(controller);
 
-    </script>
+    </script> -->
 
 
   </div>
@@ -386,10 +396,10 @@ Template Name: Home Rack
         <div class="row">
           <div class="col">
               <h1 class="contact-header">Contact Us</h1>
+              <div class="contact-box">
+                <?php the_field('contact_us_section'); ?>
+              </div>
           </div>
-        </div>
-          <div class="contact-box">
-             <?php the_field('contact_us_section'); ?>
         </div>
       </div>
     </div>
