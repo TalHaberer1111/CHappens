@@ -7,24 +7,7 @@ Template Name: Home Rack
 
 <?php get_header(); ?>
 
-<script>
 
-  $( document ).ready(function() {
-
-$.ajax({
-  url: "/api/getWeather",
-  data: {
-    zipcode: 63015
-  },
-  success: function( result ) {
-    $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
-  }
-});
-
-});
-
-
-</script>
 
 <div class="hero-container">
 
@@ -58,10 +41,35 @@ $.ajax({
       </div> -->
   </div>
 
-  <img class="unbounded-image-hero" src="<?php echo get_template_directory_uri(); ?>/images/unbounded8.png" alt="">
+  <!-- <img class="unbounded-image-hero" src="<?php echo get_template_directory_uri(); ?>/images/unbounded8.png" alt=""> -->
 
+  <div class="frame">
+    <div class="card"><img class="unbounded-image-hero background-img" src="<?php echo get_template_directory_uri(); ?>/images/unbounded8.png" alt=""></div>
+  </div>
 
 </div>
+
+<article class="comic">
+  <div class="panel">
+    <p class="text top-left">Suddenly...</p>
+    <p class="text bottom-right">...something amazing happened</p>
+  </div>
+  <div class="panel">
+    <p class="text top-left">Try resizing...</p>
+    <p class="text bottom-right">...it's responsive</p>
+  </div>
+  <div class="panel">
+    <p class="speech">A speech bubble</p>
+  </div>
+  <div class="panel"></div>
+  <div class="panel"></div>
+  <div class="panel"></div>
+  <div class="panel"></div>
+  <div class="panel"></div>
+  <div class="panel">
+    <p class="text bottom-right">THE END</p>
+  </div>
+</article>
 
 
 <!-- <div class="video-addition-background">
@@ -70,21 +78,21 @@ $.ajax({
   </div>
 </div> -->
 <div id="weather-temp"></div>
-<div class="section-info-boxes">
+<div id="trigger1" class="section-info-boxes">
   <div class="container">
     <div class="row">
       <div class="col-sm">
-        <div class="info-box">
+        <div id="box1"  class="info-box">
           <p>An individual has not started living until he can rise above the narrow confines of his indvidualistic</p>
         </div>
       </div>
       <div class="col-sm">
-        <div class="info-box">
+        <div id="box2"  class="info-box">
           <p>An individual has not started living until he can rise above the narrow confines of his indvidualistic</p>
         </div>
       </div>
       <div class="col-sm">
-        <div class="info-box">
+        <div  id="box3" class="info-box">
           <p>An individual has not started living until he can rise above the narrow confines of his indvidualistic</p>
         </div>
       </div>
@@ -92,6 +100,35 @@ $.ajax({
     </div>
 
   </div>
+
+
+  <script>
+
+      // init controller
+    var controller = new ScrollMagic.Controller();
+
+    // create a scene
+    // build scene
+            var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
+            // trigger animation by adding a css class
+            .setClassToggle("#box1", "fadeInUpBig",)
+            .addTo(controller);
+
+    // create a scene
+    // build scene
+            var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
+            // trigger animation by adding a css class
+            .setClassToggle("#box2", "fadeInUpBig2",)
+            .addTo(controller);
+
+    // create a scene
+    // build scene
+            var scene = new ScrollMagic.Scene({triggerElement: "#trigger1", duration: "100%"})
+            // trigger animation by adding a css class
+            .setClassToggle("#box3", "fadeInUpBig3",)
+            .addTo(controller);
+
+  </script>
 
 </div>
 
@@ -169,11 +206,11 @@ $.ajax({
 
   </div>
 
-  <div class="section-cards">
-<div class="container">
+  <div id="trigger3" class="section-cards">
+    <div class="container">
 
     <div class="card-group">
-      <div class="card">
+      <div id="card1" class="card">
         <div class="card-body">
           <h4 class="card-title">Our Vision</h4>
           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -182,7 +219,7 @@ $.ajax({
           <small class="text-muted">Join our mission to help humanity!</small>
         </div>
       </div>
-      <div class="card">
+      <div id="card2" class="card">
         <div class="card-body">
           <h4 class="card-title">Our Mission</h4>
           <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -191,7 +228,7 @@ $.ajax({
           <small class="text-muted">Join our mission to help humanity!</small>
         </div>
       </div>
-      <div class="card">
+      <div id="card3" class="card">
         <div class="card-body">
           <h4 class="card-title">Our Principles</h4>
           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
@@ -202,6 +239,39 @@ $.ajax({
       </div>
     </div>
   </div>
+
+  <script>
+
+      // init controller
+    var controller = new ScrollMagic.Controller();
+
+    // create a scene
+    // build scene
+						var scene = new ScrollMagic.Scene({triggerElement: "#trigger3", duration: "100%"})
+						// trigger animation by adding a css class
+						.setClassToggle("#card1", "fadeInRight",)
+						.addTo(controller);
+
+    // create a scene
+    // build scene
+            var scene = new ScrollMagic.Scene({triggerElement: "#trigger3", duration: "100%"})
+            // trigger animation by adding a css class
+            .setClassToggle("#card2", "fadeInRight2",)
+            .addTo(controller);
+
+    // create a scene
+    // build scene
+            var scene = new ScrollMagic.Scene({triggerElement: "#trigger3", duration: "100%"})
+            // trigger animation by adding a css class
+            .setClassToggle("#card3", "fadeInRight3",)
+            .addTo(controller);
+
+  </script>
+
+
+
+
+
   </div>
 
   <div id="section-three" class="section-three gallery-section">
@@ -246,7 +316,7 @@ $.ajax({
 
         		?>
 
-        		<div class="section-four-box">
+        		<div id="sectionFour" class="section-four-box">
               <div class="row">
                 <div class="col-sm">
                   <?php echo $content; ?>
@@ -310,6 +380,100 @@ $.ajax({
       </div>
     </div>
 
+
+    <script>
+
+      $( document ).ready(function() {
+
+        "use strict";
+
+        var MAX_ROT = 30;
+        var ANIM_SPEED = 0.075;
+
+        var frame = void 0,
+            card = void 0,
+            img = void 0,
+            mouse = void 0,
+            userPos = void 0,
+            hover = void 0,
+            padding = void 0,
+            center = void 0;
+
+        function lerp(n1, n2, speed) {
+        	return (1 - speed) * n1 + speed * n2;
+        }
+
+        Array.prototype.lerp = function (target, speed) {
+        	var _this = this;
+
+        	this.forEach(function (n, i) {
+        		return _this[i] = lerp(n, target[i], speed);
+        	});
+        };
+
+        function resize() {
+        	var rect = card.getBoundingClientRect();
+        	center = [0.5 * card.clientWidth + rect.left, 0.5 * card.clientHeight + rect.top];
+        	userPos = [center[0], center[1]];
+        }
+
+        function loop() {
+        	var xPosNorm = void 0,
+        	    yPosNorm = void 0,
+        	    mouseDistNorm = void 0,
+        	    theta = void 0,
+        	    xRot = void 0,
+        	    yRot = void 0,
+        	    imgX = void 0,
+        	    imgY = void 0;
+
+        	userPos.lerp(hover ? mouse : center, ANIM_SPEED);
+
+        	xPosNorm = (center[0] - userPos[0]) / center[0];
+        	yPosNorm = (center[1] - userPos[1]) / center[1];
+
+        	imgX = xPosNorm * padding[0];
+        	imgY = yPosNorm * padding[1];
+
+        	mouseDistNorm = Math.sqrt(xPosNorm * xPosNorm + yPosNorm * yPosNorm);
+        	theta = Math.atan2(userPos[1] - center[1], userPos[0] - center[0]);
+
+        	xRot = Math.sin(-theta) * MAX_ROT * mouseDistNorm; //card x-axis rotation based on mouse y-axis position
+        	yRot = Math.cos(theta) * MAX_ROT * mouseDistNorm;
+
+        	card.style.transform = "rotateX(" + xRot + "deg) rotateY(" + yRot + "deg)";
+        	img.style.transform = "translateX(" + imgX + "px) translateY(" + imgY + "px)";
+        	window.requestAnimationFrame(loop);
+        }
+
+        function init() {
+        	frame = document.querySelector(".frame");
+        	card = document.querySelector(".card");
+        	img = document.querySelector(".background-img");
+        	mouse = [0, 0];
+        	hover = false;
+        	padding = [0.5 * (img.clientWidth - card.clientWidth), 0.5 * (img.clientHeight - card.clientHeight)];
+
+        	resize();
+
+        	frame.addEventListener("mousemove", function (e) {
+        		mouse[0] = e.clientX;
+        		mouse[1] = e.clientY;
+        		hover = true;
+        	});
+
+        	frame.addEventListener("mouseleave", function () {
+        		hover = false;
+        	});
+        	loop();
+        }
+
+        window.onresize = resize;
+        window.onload = init;
+    });
+
+
+    </script>
 
 
 

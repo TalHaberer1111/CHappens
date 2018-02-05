@@ -125,12 +125,14 @@ h1, h2 {
 }
 
 .hero-button {
-	border: 2px solid midnightblue;
-	padding: 6px 12px;
-	color: white;
-	background-color: royalblue;
+	border: 5px solid black;
+	padding: 8px 18px;
+	color: black;
+	background-color: white;
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
+	margin: 0 auto;
+	max-width: 100px;
 }
 
 .hero-logo {
@@ -176,6 +178,7 @@ h1, h2 {
 	padding-bottom: 6%;
 	border: 20px solid white;
 	border-top: none;
+	background-color: #003f64;
 }
 
 ul.gallery-image-container {
@@ -219,6 +222,7 @@ ul.gallery-image-container {
 
 .section-cards .card {
 	border: 15px solid #f7f7f7;
+	opacity: 0;
 }
 
 .section-cards .card-footer {
@@ -382,7 +386,7 @@ footer .footer-link:hover {
 		bottom: 0;
 		z-index: -1 !important;
 		width: 100%;
-		height: 700px !important;
+		/* height: 600px !important; */
 		overflow: hidden;
 	}
 
@@ -416,6 +420,7 @@ footer .footer-link:hover {
 	.section-info-boxes .info-box {
 		position: relative;
 		z-index: 500;
+		opacity: 0;
 	}
 
 
@@ -423,12 +428,12 @@ footer .footer-link:hover {
 		padding-top: 10% !important;
 	}
 	.hero-container {
-		/*background: url("images/unbounded8.png") no-repeat;
+		/* background: url("images/unbounded8.png") no-repeat;
 		background-position: center left;
 		background-size: 60% auto;
-		background-attachment: fixed;*/
+		background-attachment: fixed; */
 		background-color: #000a3c;
-		height: 82vh;
+		height:620px;
 		border: 10px solid white;
 		border-top: none !important;
 	}
@@ -657,4 +662,263 @@ footer .footer-link:hover {
 	.section-info-boxes {
 		margin-top: 10%;
 	}
+}
+
+/* Frame Practice  */
+
+.frame {
+  position: absolute;
+  top: 65%;
+	left: 32%;
+  width: 700px;
+  height: 400px;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+					z-index: -1;
+}
+.frame .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background: transparent;
+  -webkit-box-shadow: 0 0 2px rgba(30, 30, 20, 0.5);
+          box-shadow: 0 0 2px rgba(30, 30, 20, 0.5);
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  overflow: hidden;
+}
+.frame .card img {
+  display: block;
+  position: relative;
+  width: 150%;
+  height: auto;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+
+@media(max-width: 767px) {
+	.frame {
+		display: none;
+	}
+}
+
+/* Comic Display */
+
+.comic {
+  display:flex;
+  flex-wrap:wrap;
+  font-family: 'Prosto One', cursive;
+  padding:1vmin;
+}
+
+.panel {
+  background-color:#fff;
+  border:solid 2px #000;
+  box-shadow:0 6px 6px -6px #000;
+  display:inline-block;
+  flex:1 1;
+  height:200px;
+  margin:1vmin;
+  overflow:hidden;
+  position:relative;
+}
+
+.text {
+  background-color:#fff;
+  border:solid 2px #000;
+  margin:0;
+  padding:5px 15px;
+}
+
+.top-left {
+  left:-6px;
+  position:absolute;
+  top:-2px;
+  transform:skew(-15deg);
+}
+
+.bottom-right {
+  bottom:-2px;
+  position:absolute;
+  right:-6px;
+  transform:skew(-15deg);
+}
+
+.speech {
+  background-color:#fff;
+  border:solid 2px #000;
+  border-radius:12px;
+  display:inline-block;
+  margin:.5em;
+  padding:.5em 1em;
+  position:relative;
+}
+
+.speech:before {
+  border:solid 12px transparent;
+  border-left:solid 12px #000;
+  border-top:solid 12px #000;
+  bottom:-24px;
+  content:"";
+  height:0;
+  left:24px;
+  position:absolute;
+  transform:skew(-15deg);
+  width:0;
+}
+
+.speech:after {
+  border:solid 10px transparent;
+  border-left:solid 10px #fff;
+  border-top:solid 10px #fff;
+  bottom:-19px;
+  content:"";
+  height:0;
+  left:27px;
+  position:absolute;
+  transform:skew(-15deg);
+  width:0;
+}
+
+.panel:nth-child(1) {
+  flex-basis: 400px;
+}
+.panel:nth-child(2) {
+  flex-basis: 200px;
+}
+.panel:nth-child(3) {
+  flex-basis: 200px;
+}
+.panel:nth-child(4) {
+  flex-basis: 200px;
+}
+.panel:nth-child(5) {
+  flex-basis: 200px;
+}
+.panel:nth-child(6) {
+  flex-basis: 200px;
+}
+.panel:nth-child(7) {
+  flex-basis: 400px;
+}
+.panel:nth-child(8) {
+  flex-basis: 200px;
+}
+.panel:nth-child(9) {
+  flex-basis: 200px;
+}
+
+/* background colours */
+
+.panel:nth-child(4n+1) {
+  background-image:radial-gradient(circle, yellow, orange);
+}
+
+.panel:nth-child(4n+2) {
+  background-image:radial-gradient(circle, lightblue, deepskyblue);
+}
+
+.panel:nth-child(4n+3) {
+  background-image:radial-gradient(circle, palegreen, yellowgreen);
+}
+
+.panel:nth-child(4n+4) {
+  background-image:radial-gradient(circle, lightcoral, tomato);
+}
+
+/* ANIMATIONS */
+
+@-webkit-keyframes fadeInRight {
+	 0% {
+			opacity: 0;
+			-webkit-transform: translateX(60px);
+	 }
+	 100% {
+			opacity: 1;
+			-webkit-transform: translateX(0);
+	 }
+}
+
+@keyframes fadeInRight {
+	 0% {
+			opacity: 0;
+			transform: translateX(60px);
+	 }
+	 100% {
+			opacity: 1;
+			transform: translateX(0);
+	 }
+}
+
+.fadeInRight {
+	 -webkit-animation: fadeInRight .8s ease-in;
+	 animation: fadeInRight .8s ease-in;
+	 animation-fill-mode: forwards;
+	-webkit-animation-mode: forwards;
+}
+
+.fadeInRight2 {
+	 -webkit-animation: fadeInRight .8s ease-in;
+	 animation: fadeInRight .8s ease-in;
+	 animation-fill-mode: forwards;
+	-webkit-animation-mode: forwards;
+	animation-delay: .3s;
+ -webkit-animation-delay: .3s;
+}
+
+
+.fadeInRight3 {
+	 -webkit-animation: fadeInRight .8s ease-in;
+	 animation: fadeInRight .8s ease-in;
+	 animation-fill-mode: forwards;
+	-webkit-animation-mode: forwards;
+	animation-delay: .6s;
+ -webkit-animation-delay: .6s;
+}
+
+@keyframes fadeInUpBig {
+	 0% {
+			opacity: 0;
+			transform: translateY(100px);
+	 }
+	 100% {
+			opacity: 1;
+			transform: translateY(-20px);
+	 }
+}
+
+.fadeInUpBig {
+	-webkit-animation: fadeInUpBig  .8s ease-in;
+	animation: fadeInUpBig  .8s ease-in;
+	animation-fill-mode: forwards;
+ -webkit-animation-mode: forwards;
+}
+
+.fadeInUpBig2 {
+	-webkit-animation: fadeInUpBig  .8s ease-in;
+	animation: fadeInUpBig  .8s ease-in;
+	animation-fill-mode: forwards;
+ -webkit-animation-mode: forwards;
+ animation-delay: .3s;
+-webkit-animation-delay: .3s;
+}
+
+.fadeInUpBig3 {
+	-webkit-animation: fadeInUpBig  .8s ease-in;
+	animation: fadeInUpBig  .8s ease-in;
+	animation-fill-mode: forwards;
+ -webkit-animation-mode: forwards;
+ animation-delay: .6s;
+ -webkit-animation-delay: .6s;
 }
